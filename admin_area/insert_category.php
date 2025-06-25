@@ -2,7 +2,7 @@
 
 <?php
 
- include('../includes/connect.php');
+ include('../includes/connect.php'); 
 
   if(isset($_POST['insert_category'])){ 
      echo "<script>alert('insert_category variable is SET')</script>";

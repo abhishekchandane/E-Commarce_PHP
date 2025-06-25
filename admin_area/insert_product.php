@@ -4,7 +4,7 @@
     include('../includes/connect.php');
 
 
-    if(isset($_POST['insert_product'])){
+    if(isset($_POST['insert_product'])){ 
 
         $product_title = $_POST['product_title'];
         $product_description = $_POST['product_description'];
@@ -46,7 +46,7 @@
 
             if($result_query){
                 echo "<script>alert('Product Inserted Successfully !!! ')</script>";
-                
+
             }
         }
     }

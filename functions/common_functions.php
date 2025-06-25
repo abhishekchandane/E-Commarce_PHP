@@ -42,7 +42,7 @@ include('./includes/connect.php');
             }
         }
     }
-
+ 
     // Getting Unique Categories
     function getUniqueCategories(){ 
         global $conn; 

@@ -84,7 +84,7 @@
                     <?php
                         getProducts();
                         getUniqueCategories();
-                        getUniqueBrands();
+                        getUniqueBrands(); 
                     ?>
                     <!-- Product Card 1 -->
 
