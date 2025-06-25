@@ -7,6 +7,8 @@
 
 <?php
 // Sample PHP for e-commerce (dynamic content can be added later)
+   include('includes/connect.php');
+   include('functions/common_functions.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,40 +35,40 @@
         }
         
         .product-card img {
-            height: 250px;
-            object-fit: cover;
+            height: 300px;
+            padding:25px;
         }
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary ">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">My E-Shop</a>
+            <a class="navbar-brand text-light" href="admin_area/index.php">My E-Shop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+            <div class="collapse navbar-collapse " id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item ">
+                        <a class="nav-link active text-light" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Products</a>
+                        <a class="nav-link text-light " href="#">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Register</a>
+                        <a class="nav-link text-light " href="#">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link text-light " href="#">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Cart <i class="fas fa-shopping-cart"></i> <span class="badge bg-danger">1</span></a>
+                        <a class="nav-link text-light " href="#">Cart <i class="fas fa-shopping-cart"></i> <span class="badge bg-danger">1</span></a>
                     </li>
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search Products" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="border-light btn btn-outline-success text-light" type="submit">Search</button>
                 </form>
             </div>
         </div>
@@ -78,39 +80,14 @@
             <!-- Product Cards -->
             <div class="col-lg-9 col-md-8">
                 <div class="row">
+                    <!-- Fetching Products -->
+                    <?php
+                        getProducts();
+                        getUniqueCategories();
+                        getUniqueBrands();
+                    ?>
                     <!-- Product Card 1 -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card product-card">
-                            <img src="https://via.placeholder.com/350x250" class="card-img-top" alt="Product Image">
-                            <div class="card-body">
-                                <h5 class="card-title">Product Name</h5>
-                                <p class="card-text">Description of the product goes here.</p>
-                                <a href="#" class="btn btn-primary">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product Card 2 -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card product-card">
-                            <img src="https://via.placeholder.com/350x250" class="card-img-top" alt="Product Image">
-                            <div class="card-body">
-                                <h5 class="card-title">Product Name</h5>
-                                <p class="card-text">Description of the product goes here.</p>
-                                <a href="#" class="btn btn-primary">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product Card 3 -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card product-card">
-                            <img src="https://via.placeholder.com/350x250" class="card-img-top" alt="Product Image">
-                            <div class="card-body">
-                                <h5 class="card-title">Product Name</h5>
-                                <p class="card-text">Description of the product goes here.</p>
-                                <a href="#" class="btn btn-primary">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
 
@@ -122,10 +99,9 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item"><a href="#">Brand 1</a></li>
-                            <li class="list-group-item"><a href="#">Brand 2</a></li>
-                            <li class="list-group-item"><a href="#">Brand 3</a></li>
-                            <li class="list-group-item"><a href="#">Brand 4</a></li>
+                            <?php
+                                getBrands();
+                            ?> 
                         </ul>
                     </div>
                 </div>
@@ -135,10 +111,11 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item"><a href="#">Category 1</a></li>
-                            <li class="list-group-item"><a href="#">Category 2</a></li>
-                            <li class="list-group-item"><a href="#">Category 3</a></li>
-                            <li class="list-group-item"><a href="#">Category 4</a></li>
+
+                            <?php
+                                getCategories();
+                            ?> 
+
                         </ul>
                     </div>
                 </div>
@@ -148,13 +125,13 @@
 
 
     <!-- Footer -->
-    <footer class="bg-light text-center py-4">
+    <footer class="text-light text-center bg-primary">
         <div class="container">
-            <div class="footer-social-icons mb-3">
-                <a href="#" class="fab fa-facebook"></a>
-                <a href="#" class="fab fa-twitter"></a>
-                <a href="#" class="fab fa-instagram"></a>
-                <a href="#" class="fab fa-linkedin"></a>
+            <div class="footer-social-icons p-2">
+                <a href="#" class="text-light fab fa-facebook"></a>
+                <a href="#" class="text-light fab fa-twitter"></a>
+                <a href="#" class="text-light fab fa-instagram"></a>
+                <a href="#" class="text-light fab fa-linkedin"></a>
             </div>
             <p>© 2025 My E-Shop. All rights reserved.</p>
         </div>
