@@ -51,7 +51,7 @@
             <div class="collapse navbar-collapse " id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                     <li class="nav-item ">
-                        <a class="nav-link active text-light" href="index.php">Home</a>
+                        <a class="nav-link active text-light" href="#">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-light " href="display_all.php">Products</a>
@@ -83,7 +83,7 @@
                 <div class="row">
                     <!-- Fetching Products -->
                     <?php
-                        getProducts();
+                        getAllProducts();
                         getUniqueCategories();
                         getUniqueBrands(); 
                     ?>
@@ -130,8 +130,6 @@
             include('includes/footer.php');
         ?>
     <!-- Footer -->
-
-
 
     <!-- Latest Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.0/dist/umd/popper.min.js"></script>

@@ -4,8 +4,7 @@
 
  include('../includes/connect.php'); 
 
-  if(isset($_POST['insert_category'])){ 
-     echo "<script>alert('insert_category variable is SET')</script>";
+  if(isset($_POST['insert_category'])){  
       $category_title = $_POST['category_title'];
 
       $select_query = "SELECT * FROM `categories` WHERE category_title = '$category_title' ";

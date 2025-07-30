@@ -13,6 +13,42 @@ include('./includes/connect.php');
         // Condition to check isset or not
         if(!isset($_GET['category'])){
             if(!isset($_GET['brand'])){
+                $select_products = "SELECT * FROM `products` ORDER BY rand() limit 0,4";
+                $result_products = mysqli_query($conn, $select_products);
+                while($row = mysqli_fetch_assoc($result_products)){
+                    $product_id = $row['product_id'];
+                    $product_title = $row['product_title'];
+                    $product_description = $row['product_description'];
+                    $product_keywords = $row['product_keywords'];
+                    $product_image1 = $row['product_image1'];
+                    $product_price = $row['product_price'];
+                    $category_id = $row['category_id'];
+                    $brand_id = $row['brand_id'];
+                    echo "
+                            <div class='col-lg-4 col-md-6 mb-4'>
+                                <div class='card product-card'>
+                                    <img src='./admin_area/product_images/$product_image1' class='product-card' alt='Product Image'>
+                                    <div class='card-body'>
+                                        <h5 class='card-title'> $product_title</h5>
+                                        <p class='card-text'>$product_description</p>
+                                        <a href='#' class='btn btn-primary'>Add to Cart</a>
+                                        <a href='#' class='btn btn-warning text-light'>View More</a>
+                                    </div>
+                                </div>
+                            </div> 
+                    ";
+                    
+                }
+            }
+        }
+    }
+
+    // Getting All Products
+    function getAllProducts(){
+        global $conn;
+        // Condition to check isset or not
+        if(!isset($_GET['category'])){
+            if(!isset($_GET['brand'])){
                 $select_products = "SELECT * FROM `products` ORDER BY rand() limit 0,9";
                 $result_products = mysqli_query($conn, $select_products);
                 while($row = mysqli_fetch_assoc($result_products)){
@@ -146,6 +182,51 @@ include('./includes/connect.php');
         }
     }
 
+
+    // Searching Products
+    function search_product(){
+        global $conn;
+        // Condition to check isset or not
+            if(isset($_GET['search_data_product'])){
+                    $search_data_value = $_GET['search_data'];                                                            
+                    $search_query = "SELECT * FROM `products` WHERE product_keywords LIKE '%$search_data_value%'";
+                    $result_search = mysqli_query($conn, $search_query);
+                    $number_of_rows = mysqli_num_rows($result_search);
+                    if($number_of_rows==0){
+                        echo '<h2 class="text-center text-danger">
+                        No Result Match ,No Products Found for This Category</h2>';
+                        return;
+                    }
+                    while($row = mysqli_fetch_assoc($result_search)){
+                        $product_id = $row['product_id'];
+                        $product_title = $row['product_title'];
+                        $product_description = $row['product_description'];
+                        $product_keywords = $row['product_keywords'];
+                        $product_image1 = $row['product_image1'];
+                        $product_price = $row['product_price'];
+                        $category_id = $row['category_id'];
+                        $brand_id = $row['brand_id'];
+                        if($row['product_keywords'] == ''){
+                            echo '<script>alert("No Stock For This Product")</script>';
+                            return;
+                        }
+                        echo "
+                                <div class='col-lg-4 col-md-6 mb-4'>
+                                    <div class='card product-card'>
+                                        <img src='./admin_area/product_images/$product_image1' class='product-card' alt='Product Image'>
+                                        <div class='card-body'>
+                                            <h5 class='card-title'> $product_title</h5>
+                                            <p class='card-text'>$product_description</p>
+                                            <a href='#' class='btn btn-primary'>Add to Cart</a>
+                                            <a href='#' class='btn btn-warning text-light'>View More</a>
+                                        </div>
+                                    </div>
+                                </div> 
+                        ";
+                        
+                    }
+            } 
+    }
 
 
 

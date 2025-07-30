@@ -54,7 +54,7 @@
                         <a class="nav-link active text-light" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light " href="display_all.php">Products</a>
+                        <a class="nav-link text-light " href="#">Products</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-light " href="#">Register</a>
@@ -68,7 +68,7 @@
                 </ul>
                 <form class="d-flex" action="search_product.php" method="get">
                      <!-- Search Input -->
-                     <input class="form-control me-2" type="search" placeholder="Search Products" aria-label="Search" name="search_data"> 
+                    <input class="form-control me-2" type="search" placeholder="Search Products" aria-label="Search" name="search_data"> 
                      <input type="submit" value="Search" class="btn btn-outline-light" name="search_data_product" >
                 </form>
             </div>
@@ -83,7 +83,7 @@
                 <div class="row">
                     <!-- Fetching Products -->
                     <?php
-                        getProducts();
+                        search_product();
                         getUniqueCategories();
                         getUniqueBrands(); 
                     ?>
@@ -130,8 +130,6 @@
             include('includes/footer.php');
         ?>
     <!-- Footer -->
-
-
 
     <!-- Latest Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.0/dist/umd/popper.min.js"></script>
