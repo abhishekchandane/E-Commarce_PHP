@@ -32,7 +32,7 @@ include('./includes/connect.php');
                                         <h5 class='card-title'> $product_title</h5>
                                         <p class='card-text'>$product_description</p>
                                         <a href='#' class='btn btn-primary'>Add to Cart</a>
-                                        <a href='#' class='btn btn-warning text-light'>View More</a>
+                                        <a href='products_details.php?product_id=$product_id' class='btn btn-warning text-light'>View More</a>
                                     </div>
                                 </div>
                             </div> 
@@ -49,7 +49,7 @@ include('./includes/connect.php');
         // Condition to check isset or not
         if(!isset($_GET['category'])){
             if(!isset($_GET['brand'])){
-                $select_products = "SELECT * FROM `products` ORDER BY rand() limit 0,9";
+                $select_products = "SELECT * FROM `products` ORDER BY rand() ";
                 $result_products = mysqli_query($conn, $select_products);
                 while($row = mysqli_fetch_assoc($result_products)){
                     $product_id = $row['product_id'];
@@ -67,8 +67,8 @@ include('./includes/connect.php');
                                     <div class='card-body'>
                                         <h5 class='card-title'> $product_title</h5>
                                         <p class='card-text'>$product_description</p>
-                                        <a href='#' class='btn btn-primary'>Add to Cart</a>
-                                        <a href='#' class='btn btn-warning text-light'>View More</a>
+                                        <a href='#' class='btn btn-primary'>Add to Cart</a> 
+                                         <a href='products_details.php?product_id=$product_id' class='btn btn-warning text-light'>View More</a>
                                     </div>
                                 </div>
                             </div> 
@@ -107,8 +107,8 @@ include('./includes/connect.php');
                                     <div class='card-body'>
                                         <h5 class='card-title'> $product_title</h5>
                                         <p class='card-text'>$product_description</p>
-                                        <a href='#' class='btn btn-primary'>Add to Cart</a>
-                                        <a href='#' class='btn btn-warning text-light'>View More</a>
+                                        <a href='#' class='btn btn-primary'>Add to Cart</a> 
+                                        <a href='products_details.php?product_id=$product_id' class='btn btn-warning text-light'>View More</a>
                                     </div>
                                 </div>
                             </div> 
@@ -147,7 +147,7 @@ include('./includes/connect.php');
                                         <h5 class='card-title'> $product_title</h5>
                                         <p class='card-text'>$product_description</p>
                                         <a href='#' class='btn btn-primary'>Add to Cart</a>
-                                        <a href='#' class='btn btn-warning text-light'>View More</a>
+                                        <a href='products_details.php?product_id=$product_id' class='btn btn-warning text-light'>View More</a>
                                     </div>
                                 </div>
                             </div> 
@@ -218,7 +218,7 @@ include('./includes/connect.php');
                                             <h5 class='card-title'> $product_title</h5>
                                             <p class='card-text'>$product_description</p>
                                             <a href='#' class='btn btn-primary'>Add to Cart</a>
-                                            <a href='#' class='btn btn-warning text-light'>View More</a>
+                                        <a href='products_details.php?product_id=$product_id' class='btn btn-warning text-light'>View More</a>
                                         </div>
                                     </div>
                                 </div> 
@@ -228,6 +228,51 @@ include('./includes/connect.php');
             } 
     }
 
+
+    // View Details of Product Function
+    function view_details(){
+        global $conn;
+        if(isset($_GET['product_id'])){
+            if(!isset($_GET['category'])){
+            if(!isset($_GET['brand'])){ 
+
+            $product_id = $_GET['product_id'];
+            $select_query = "SELECT * FROM `products` WHERE product_id = $product_id";
+            $result_query = mysqli_query($conn, $select_query);
+            while($row = mysqli_fetch_assoc($result_query)){
+                   $product_id = $row['product_id'];
+                    $product_title = $row['product_title'];
+                    $product_description = $row['product_description'];
+                    $product_keywords = $row['product_keywords'];
+                    $product_image1 = $row['product_image1'];
+                    $product_image2 = $row['product_image2'];
+                    $product_image3 = $row['product_image3'];
+                    $product_price = $row['product_price'];
+                    $category_id = $row['category_id'];
+                    $brand_id = $row['brand_id'];
+                    echo "
+                        <!-- Left: Product Images -->
+                        <div class='col-md-4 text-center'>
+                            <img src='./admin_area/product_images/$product_image1' class='product-img mb-3' alt='Product Image 1'>
+                            <img src='./admin_area/product_images/$product_image2' class='product-img' alt='Product Image 2'>
+                            <img src='./admin_area/product_images/$product_image3' class='product-img' alt='Product Image 3'>
+                        </div>
+
+                        <!-- Middle: Product Info -->
+                        <div class='col-md-8'>
+                            <h2 class='product-title'>$product_title</h2> 
+                            <p>$product_description</p>
+                            <div class='price-tag mb-4'>₹$product_price</div>
+                            <a href='index.php' class='btn btn-secondary me-2'>Back to Home</a>
+                            <a href='add_to_cart.php?product_id=$product_id' class='btn btn-primary'>Add to Cart</a>
+                        </div>
+                    ";
+
+            }
+          }
+         }
+        }
+    }
 
 
 
