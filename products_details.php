@@ -73,6 +73,9 @@
         </div>
     </nav> 
 
+    <!-- Calling Cart Function -->
+    <?php cart() ?>
+
 <div class="container-fluid my-5">
   <div class="row">
     

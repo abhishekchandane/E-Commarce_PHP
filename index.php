@@ -63,7 +63,7 @@
                         <a class="nav-link text-light " href="#">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light " href="#">Cart <i class="fas fa-shopping-cart"></i> <span class="badge bg-danger">1</span></a>
+                        <a class="nav-link text-light " href="#">Cart <i class="fas fa-shopping-cart"></i> <sup class="badge bg-dark"><?php cart_item(); ?></sup></a>
                     </li>
                 </ul>
                 <form class="d-flex" action="search_product.php" method="get">
@@ -74,6 +74,9 @@
             </div>
         </div>
     </nav>
+
+    <!-- Calling Cart Function -->
+    <?php cart() ?>
 
     <!-- Main Content Section -->
     <div class="container-fluid my-5">

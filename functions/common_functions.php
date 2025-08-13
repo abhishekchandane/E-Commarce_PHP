@@ -31,7 +31,7 @@ include('./includes/connect.php');
                                     <div class='card-body'>
                                         <h5 class='card-title'> $product_title</h5>
                                         <p class='card-text'>$product_description</p>
-                                        <a href='#' class='btn btn-primary'>Add to Cart</a>
+                                        <a href='index.php?add_to_cart=$product_id' class='btn btn-primary'>Add to Cart</a>
                                         <a href='products_details.php?product_id=$product_id' class='btn btn-warning text-light'>View More</a>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@ include('./includes/connect.php');
                                     <div class='card-body'>
                                         <h5 class='card-title'> $product_title</h5>
                                         <p class='card-text'>$product_description</p>
-                                        <a href='#' class='btn btn-primary'>Add to Cart</a> 
+                                        <a href='index.php?add_to_cart=$product_id' class='btn btn-primary'>Add to Cart</a> 
                                          <a href='products_details.php?product_id=$product_id' class='btn btn-warning text-light'>View More</a>
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@ include('./includes/connect.php');
                                     <div class='card-body'>
                                         <h5 class='card-title'> $product_title</h5>
                                         <p class='card-text'>$product_description</p>
-                                        <a href='#' class='btn btn-primary'>Add to Cart</a> 
+                                        <a href='index.php?add_to_cart=$product_id' class='btn btn-primary'>Add to Cart</a> 
                                         <a href='products_details.php?product_id=$product_id' class='btn btn-warning text-light'>View More</a>
                                     </div>
                                 </div>
@@ -146,7 +146,7 @@ include('./includes/connect.php');
                                     <div class='card-body'>
                                         <h5 class='card-title'> $product_title</h5>
                                         <p class='card-text'>$product_description</p>
-                                        <a href='#' class='btn btn-primary'>Add to Cart</a>
+                                        <a href='index.php?add_to_cart=$product_id' class='btn btn-primary'>Add to Cart</a>
                                         <a href='products_details.php?product_id=$product_id' class='btn btn-warning text-light'>View More</a>
                                     </div>
                                 </div>
@@ -217,7 +217,7 @@ include('./includes/connect.php');
                                         <div class='card-body'>
                                             <h5 class='card-title'> $product_title</h5>
                                             <p class='card-text'>$product_description</p>
-                                            <a href='#' class='btn btn-primary'>Add to Cart</a>
+                                            <a href='index.php?add_to_cart=$product_id' class='btn btn-primary'>Add to Cart</a>
                                         <a href='products_details.php?product_id=$product_id' class='btn btn-warning text-light'>View More</a>
                                         </div>
                                     </div>
@@ -264,7 +264,7 @@ include('./includes/connect.php');
                             <p>$product_description</p>
                             <div class='price-tag mb-4'>₹$product_price</div>
                             <a href='index.php' class='btn btn-secondary me-2'>Back to Home</a>
-                            <a href='add_to_cart.php?product_id=$product_id' class='btn btn-primary'>Add to Cart</a>
+                            <a href='index.php?add_to_cart=$product_id' class='btn btn-primary' >Add to Cart</a>
                         </div>
                     ";
 
@@ -274,6 +274,64 @@ include('./includes/connect.php');
         }
     }
 
+
+    // Get IP Address Function
+    function getIPAddress(){
+        // Weather ip address is from shared internet or not
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }
+        // Weather ip address is from proxy or not
+        elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        // Weather ip address is from remote address or not
+        else{
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+    }
+
+    // Cart Function
+    function cart() {
+        if(isset($_GET['add_to_cart'])){
+            global $conn;
+            $ip_ = getIPAddress();
+            $get_product_id = $_GET['add_to_cart'];
+            $select_query = "SELECT * FROM `cart_details` WHERE ip_address='$ip_' AND product_id=$get_product_id";
+            $result_query = mysqli_query($conn, $select_query);
+            $number_of_rows = mysqli_num_rows($result_query);
+            if( $number_of_rows > 0 ){
+                echo "<script>alert('This Product is Already Present in Cart')</script>";
+                echo "<script>window.open('index.php','_self')</script>";
+            } else {
+                $insert_query = "INSERT INTO `cart_details` (product_id, ip_address, quantity) VALUES ($get_product_id, '$ip_', 0)";
+                $result_query = mysqli_query($conn, $insert_query);
+                echo "<script>alert('Product Added to Cart Successfully')</script>";
+                 echo "<script>window.open('index.php','_self')</script>";
+            }
+
+        }
+    }
+
+    // Function to get the total items in the cart
+    function cart_item(){
+        if(isset($_GET['add_to_cart'])){
+            global $conn;
+            $ip_ = getIPAddress();
+            $select_query = "SELECT * FROM `cart_details` WHERE ip_address='$ip_'";
+            $result_query = mysqli_query($conn, $select_query);
+            $count_cart_items = mysqli_num_rows($result_query); 
+        } else {
+            global $conn;
+            $ip_ = getIPAddress();
+            $select_query = "SELECT * FROM `cart_details` WHERE ip_address='$ip_'";
+            $result_query = mysqli_query($conn, $select_query);
+            $count_cart_items = mysqli_num_rows($result_query);
+        }
+
+        echo $count_cart_items;
+    }
 
 
 ?>
